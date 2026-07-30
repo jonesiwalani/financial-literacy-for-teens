@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teen Finance Academy | Master Your Money</title>
+    <style>
+        :root {
+            --primary: #6b8e23;          /* Muted Olive / Sage Green Accent */
+            --primary-dark: #556b2f;     /* Deep Olive Accent */
+            --primary-light: #d0e1d4;    /* Light Sage Accent */
+            --accent: #8fbc8f;           /* Soft Muted Green Accent */
+            --periwinkle: #7c69d6;       /* Periwinkle Accent */
+            
+            --bg: #eef2ff;               /* Light Periwinkle Base */
+            --card-bg: #ffffff;          /* Crisp Clean White Cards */
+            --card-border: #d5ded7;      /* Muted Border */
+            --widget-bg: #edf2ee;        /* Muted Widget Background */
+            
+            --text-main: #2c3531;        /* Professional Dark Slate Text */
+            --text-muted: #5a6660;       /* Muted Gray-Green Text */
+            
+            --success: #556b2f;
+            --error: #bc4749;
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            /* Smooth Ombre Gradient blending Periwinkle into Sage Green */
+            background: linear-gradient(135deg, #e0e7ff 0%, #ece9fe 40%, #e2e8df 70%, #d0e1d4 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.65;
+            padding: 24px 16px;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .header-divider {
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .brand-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 6px;
+        }
+
+        .cute-logo {
+            width: 58px;
+            height: 58px;
+            background: #7c69d6;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(124, 105, 214, 0.25);
+        }
+
+        .cute-logo svg {
+            width: 36px;
+            height: 36px;
+            fill: white;
+        }
+
+        .brand-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+            scrollbar-width: thin;
+        }
+
+        .tab-btn {
+            background: #ffffff;
+            border: 2px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 12px 20px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 0 var(--card-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            border-color: var(--periwinkle);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #7c69d6, #5b48bc);
+            color: white;
+            border-color: #48389c;
+            box-shadow: 0 4px 0 #48389c;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(44, 53, 49, 0.04);
+        }
+
+        .module-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .module-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .lesson-section {
+            background: var(--widget-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 18px 0;
+        }
+
+        .lesson-section h3 {
+            color: var(--text-main);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .lesson-section ul, .lesson-section p {
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .lesson-section ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .lesson-section li {
+            margin-bottom: 8px;
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .fact-card {
+            background: #ffffff;
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(44, 53, 49, 0.03);
+        }
+
+        .fact-title {
+            font-weight: 600;
+        }
+
+        .fee-badge {
+            background: var(--periwinkle);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- HEADER WITH GRADUATION CAP LOGO -->
+        <header>
+            <div class="header-divider">• • • ✦ • • •</div>
+            <div class="brand-container">
+                <div class="cute-logo" title="Teen Finance Scholar">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Solid White Graduation Cap -->
+                        <polygon points="16,6 4,12 16,18 28,12" fill="#ffffff"/>
+                        <path d="M10,15 L10,21 C10,24 22,24 22,21 L22,15" fill="#ffffff"/>
+                        <path d="M22,13 L25,20 L24,22" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        <circle cx="24" cy="22.5" r="1" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div class="brand-text">Teen Financial Literacy</div>
+            </div>
+            <p class="subtitle">Foundational Economics & Personal Wealth Management</p>
+            <div class="header-divider" style="margin-top: 8px;">• • • ✦ • • •</div>
+        </header>
+
+        <!-- NAVIGATION TABS -->
+        <div class="nav-tabs" role="tablist">
+            <button class="tab-btn active" onclick="switchTab('facts')">💡 Executive Summary</button>
+            <button class="tab-btn" onclick="switchTab('budgeting')">📊 Strategic Budgeting</button>
+            <button class="tab-btn" onclick="switchTab('savings')">📈 Emergency Reserves</button>
+            <button class="tab-btn" onclick="switchTab('fees')">🏦 Banking & Fee Structure</button>
+            <button class="tab-btn" onclick="switchTab('paycheck')">🧾 Payroll & Tax Withholding</button>
+            <button class="tab-btn" onclick="switchTab('credit')">⭐ Creditworthiness</button>
+            <button class="tab-btn" onclick="switchTab('goals')">🎯 Financial Goals & Risk</button>
+            <button class="tab-btn" onclick="switchTab('retirement')">💼 Retirement Portfolios</button>
+            <button class="tab-btn" onclick="switchTab('investing')">🚀 Capital Markets & Equities</button>
+            <button class="tab-btn" onclick="switchTab('resources')">📚 Educational Resources</button>
+        </div>
+
+        <main id="main-content"></main>
+    </div>
+
+    <script>
+        const ALL_FAST_FACTS = [
+            { category: "💡 Budgeting", title: "The 50/30/20 Blueprint", desc: "Split your net income: 50% for essential needs, 30% for personal wants, and 20% directly into wealth-building savings." },
+            { category: "📈 Savings", title: "Emergency Fund Shield", desc: "Keep 3 to 6 months of living expenses in a High-Yield Savings Account (HYSA) to protect against unexpected financial shocks." },
+            { category: "🏦 Banks", title: "Avoiding Trap Fees", desc: "Watch out for monthly account maintenance fees and overdraft penalties. Maintain minimum balances and opt-out of overdraft protection." },
+            { category: "🧾 Paychecks", title: "Gross vs. Net Pay", desc: "Gross pay is your pre-tax total wage, while net take-home pay is what actually enters your bank account after taxes and deductions." },
+            { category: "⭐ Credit", title: "Payment History Power", desc: "Payment history makes up 35% of your FICO credit score. Always pay bills on time every month to build strong creditworthiness." },
+            { category: "💼 Retirement", title: "Employer 401(k) Match", desc: "An employer match is 100% free money on your retirement contributions up to a specific percentage limit. Always claim your full match!" },
+            { category: "🚀 Investing", title: "S&P 500 Diversification", desc: "Buying index funds gives you instant ownership shares in 500 top corporations, eliminating single-stock risk through broad market diversification." }
+        ];
+
+        function renderFacts() {
+            return `
+                <section class="module-card" style="background: #ffffff; border: 2px solid var(--card-border); text-align: center; padding: 32px;">
+                    <h2 style="color: var(--text-main); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;">Aloha, Welcome to Financial Literacy for Teens.</h2>
+                    <p style="font-size: 1.1rem; color: #000000; max-width: 750px; margin: 0 auto; font-weight: 500;">
+                        As teenagers like me progress into the next phase of their life, many challenges arise including financially. Adulthood can be tricky, but managing your money doesn't have to be!
+                    </p>
+                </section>
+
+                <section class="module-card">
+                    <h2 class="module-title">💡 Core Financial Principles & Overview</h2>
+                    <p class="module-desc">High-level insights covering budgeting, savings, banking, taxes, credit, retirement, and investing.</p>
+                    <div class="fact-grid">
+                        ${ALL_FAST_FACTS.map(f => `
+                            <div class="fact-card">
+                                <span class="fee-badge" style="margin-bottom: 8px; display:inline-block;">${f.category}</span>
+                                <div class="fact-title" style="font-weight: 700;">${f.title}</div>
+                                <div class="fact-desc" style="font-size: 0.92rem; color: var(--text-main); margin-top: 6px;">${f.desc}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+        }
+
+        function switchTab(tabKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('onclick').includes(tabKey)));
+            const main = document.getElementById('main-content');
+            
+            if (tabKey === 'facts') {
+                main.innerHTML = renderFacts();
+            } else if (tabKey === 'budgeting') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">📊 Strategic Budgeting & Capital Allocation</h2>
+                        <p class="module-desc">A budget is a formal fiscal plan that helps you track income and expenditures so you understand capital flow each month. According to financial analysts, budgeting is fundamental for effective wealth management.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Key Principles</h3>
+                            <ul>
+                                <li>Monitor all active revenue streams.</li>
+                                <li>Log and categorize operating expenses.</li>
+                                <li>Conduct monthly income-to-expense variance analyses.</li>
+                                <li>Establish capital targets prior to discretionary spending.</li>
+                                <li>Implement corrective adjustments when expenditures exceed cash flow.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>The 50/30/20 Allocation Rule</h3>
+                            <p>A standard budgeting framework:</p>
+                            <ul>
+                                <li><strong>50%</strong> → Essential Living Expenses (housing, food, utilities)</li>
+                                <li><strong>30%</strong> → Discretionary Spending (personal lifestyle choices)</li>
+                                <li><strong>20%</strong> → Capital Accumulation & Wealth Building</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Importance of Fiscal Discipline</h3>
+                            <ul>
+                                <li>Mitigates deficit spending and debt accumulation</li>
+                                <li>Accelerates reserve fund accumulation</li>
+                                <li>Reduces financial anxiety and volatility</li>
+                                <li>Provides a clear roadmap for long-term objectives</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Lifestyle Inflation Mitigation</h3>
+                            <p><strong>Definition:</strong> Lifestyle inflation occurs when discretionary spending escalates proportionally with income growth (e.g., upgrading vehicles or housing prematurely upon receiving salary increases).</p>
+                            <p style="margin-top: 8px;"><strong>Professional Strategy:</strong> Wealth advisors recommend scaling your savings rate concurrently with earnings growth rather than absorbing all additional revenue into lifestyle expenses.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Prudent Purchasing Framework</h3>
+                            <p>Before executing a transaction, evaluate: <em>Is this necessary? Is it financially sustainable? Have market comparisons been performed? Does utility persist long-term?</em></p>
+                            <p style="margin-top: 8px;">Best practices include evaluating total cost of ownership, conducting market research, avoiding impulse purchases, and reviewing warranty coverage.</p>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'savings') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">📈 Liquidity Reserves & Emergency Management</h2>
+                        <p class="module-desc">An emergency reserve is capital allocated exclusively for unforeseen operational disruptions or financial contingencies.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Common Contingencies</h3>
+                            <ul>
+                                <li>Automotive repairs and maintenance</li>
+                                <li>Unexpected medical expenses</li>
+                                <li>Unplanned employment income interruptions</li>
+                                <li>Property or structural repairs</li>
+                                <li>Emergency logistics and travel</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Critical Insights</h3>
+                            <ul>
+                                <li>Incremental savings significantly enhance financial resilience.</li>
+                                <li>Absence of emergency capital frequently forces reliance on high-cost revolving debt.</li>
+                                <li>Emergency funds must remain segregated from daily operational cash flow.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Target Reserve Thresholds</h3>
+                            <ul>
+                                <li>Initial benchmark: Build a foundational reserve of <strong>$500 to $1,000</strong>.</li>
+                                <li>Long-term benchmark: Maintain liquid reserves equivalent to <strong>3 to 6 months</strong> of mandatory living expenses.</li>
+                            </ul>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'fees') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">🏦 Banking Architecture & Fee Mitigation</h2>
+                        <p class="module-desc">Comprehending financial institution frameworks allows you to preserve capital and eliminate avoidable costs.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Transaction Checking Accounts</h3>
+                            <p>Engineered for high-frequency liquidity: processing bill payments, debit card transactions, direct payroll deposits, and immediate cash access.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Yield Savings Accounts</h3>
+                            <p>Engineered for capital preservation, interest accumulation, emergency reserves, and milestone funding.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Common Banking Fees & Avoidance Strategies</h3>
+                            <ul>
+                                <li><strong>Account Maintenance Fees:</strong> Periodic charges levied by institutions if balances drop below specified minimums. (Strategy: Select fee-free student accounts or credit union alternatives).</li>
+                                <li><strong>Overdraft Penalties:</strong> Fees triggered when transactional volume exceeds available ledger balances. (Strategy: Decline overdraft protection features so transactions are automatically declined instead of penalized).</li>
+                                <li><strong>Out-of-Network ATM Surcharges:</strong> Additional fees imposed when utilizing foreign terminal networks.</li>
+                                <li><strong>Electronic Wire Fees:</strong> Transactional costs associated with moving funds across institutional boundaries.</li>
+                                <li><strong>Paper Statement Delivery Fees:</strong> Charges for physical documentation instead of digital paperless reporting.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Institutional Fundamentals</h3>
+                            <ul>
+                                <li>Savings vehicles generally offer higher annual percentage yields (APY) than transaction accounts.</li>
+                                <li>High-Yield Savings Accounts (HYSAs) maximize passive interest earnings.</li>
+                                <li>Depositories offer protection up to statutory limits backed by federal agencies (FDIC / NCUA).</li>
+                            </ul>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'paycheck') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">🧾 Compensation Structures & Tax Withholdings</h2>
+                        <p class="module-desc">Analyzing earnings statements and understanding fiscal obligations that fund public infrastructure.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Earnings Statement Breakdown</h3>
+                            <ul>
+                                <li><strong>Gross Compensation:</strong> Total earned remuneration prior to statutory deductions.</li>
+                                <li><strong>Net Take-Home Pay:</strong> Actual liquid funds deposited into your account after all deductions.</li>
+                                <li><strong>Statutory Withholdings:</strong> Automatically deducted federal, state, and social insurance taxes.</li>
+                                <li><strong>Voluntary Deductions:</strong> Optional allocations such as health premiums or retirement savings.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Tax Classification Overview</h3>
+                            <ul>
+                                <li><strong>Federal Income Tax:</strong> Progressive federal levy on annual earnings supporting national operations and programs.</li>
+                                <li><strong>State Income Tax:</strong> Territorial tax imposed by governing state authorities to fund regional public services.</li>
+                                <li><strong>FICA Contributions (Social Security & Medicare):</strong> Mandatory federal payroll levies (6.2% for Social Security and 1.45% for Medicare) funding senior and healthcare benefits.</li>
+                                <li><strong>Sales Tax:</strong> Transactional tax applied to retail purchases at point of sale.</li>
+                                <li><strong>Property Tax:</strong> Local levy assessed against real estate valuations supporting municipal education systems.</li>
+                            </ul>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'credit') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">⭐ Creditworthiness & Debt Management</h2>
+                        <p class="module-desc">Maintaining optimal credit profiles represents a foundational pillar of modern financial positioning.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Revolving Credit & APR Mechanics</h3>
+                            <p>Revolving lines of credit authorize temporary borrowing up to a designated ceiling. <strong>APR (Annual Percentage Rate)</strong> establishes the annualized cost of carrying unpaid debt balances.</p>
+                            <ul>
+                                <li><strong>Strategic Benefits:</strong> Fraud protection, cash-back rewards, credit profile establishment, and checkout convenience.</li>
+                                <li><strong>Rule of Governance:</strong> Always remit 100% of the statement balance by the payment due date to eliminate interest expenses.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Credit Scoring Models & Reports</h3>
+                            <p>Credit scores (typically spanning 300 to 850) quantify borrower risk profiles for lenders, landlords, and insurance carriers.</p>
+                            <ul>
+                                <li><strong>Key Determinants:</strong> Payment timeliness, credit utilization ratios, credit history duration, new credit applications, and account diversification.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Liability Classification: Productive vs. Destructive Debt</h3>
+                            <ul>
+                                <li><strong>Productive Leverage:</strong> Debt designed to build long-term value (e.g., subsidized education loans, real estate mortgages).</li>
+                                <li><strong>Destructive Debt:</strong> High-interest consumer borrowing (e.g., credit card revolving balances, payday advances). Always scrutinize interest terms prior to borrowing.</li>
+                            </ul>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'goals') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">🎯 Strategic Objectives, Insurance & Fraud Defense</h2>
+                        <p class="module-desc">Establishing measurable financial benchmarks, mitigating asset risk, and defending against financial predators.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>SMART Financial Objectives</h3>
+                            <p>Objectives perform optimally when structured as <strong>S</strong>pecific, <strong>M</strong>easurable, <strong>A</strong>chievable, <strong>R</strong>elevant, and <strong>T</strong>ime-bound. Examples range from short-term emergency funding to long-term real estate acquisition.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Risk Management & Insurance Principles</h3>
+                            <p>Insurance contracts transfer catastrophic financial exposure to institutional underwriters. Policyholders remit regular premiums in exchange for financial indemnification against covered losses under health, automobile, property, or liability policies.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Fraud Detection & Prevention</h3>
+                            <p>Common threat vectors include digital phishing, fraudulent investment schemes, synthetic identity theft, and retail voucher fraud. Indicators of fraud include artificial urgency, promised abnormal returns, and untraceable payment demands.</p>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'retirement') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">💼 Long-Term Retirement Portfolios (IRAs & 401k)</h2>
+                        <p class="module-desc">Initiating retirement planning early leverages exponential compounding and substantial tax advantages.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Employer-Sponsored Retirement Plans & Matching</h3>
+                            <p>A 401(k) is an institutional retirement vehicle. Corporate matching programs provide 100% risk-free returns up to specified salary thresholds (e.g., matching contributions up to 3%). Always claim your full corporate match.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Individual Retirement Accounts (IRAs)</h3>
+                            <p>An IRA is a personal tax-advantaged vehicle established through brokerage institutions. Key classifications include:</p>
+                            <ul>
+                                <li><strong>Traditional IRA:</strong> Contributions utilize pre-tax income, offering immediate deductions with ordinary income tax applied upon withdrawal during retirement.</li>
+                                <li><strong>Roth IRA:</strong> Contributions utilize post-tax capital. The structural advantage is that decades of compounding growth and ultimate retirement distributions are <strong>100% tax-exempt</strong>, making Roth structures exceptionally powerful for youth with earned income.</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>The Power of Compounding</h3>
+                            <p>Allocating capital into public equities over multi-decade horizons generates exponential wealth accumulation. Early initiation provides capital decades to multiply organically.</p>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'investing') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">🚀 Capital Markets & Equity Accumulation</h2>
+                        <p class="module-desc">Deploying capital into financial markets enables wealth generation that outpace inflationary forces.</p>
+                        
+                        <div class="lesson-section">
+                            <h3>Corporate Equities & Utility</h3>
+                            <p>An equity share represents fractional corporate ownership. Public equities enable everyday investors to participate in commercial earnings, historically delivering returns superior to cash savings to defeat inflation.</p>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Asset Appreciation vs. Depreciation</h3>
+                            <p>Differentiating between appreciating and depreciating assets dictates net worth trajectories:</p>
+                            <ul>
+                                <li><strong>Appreciating Assets:</strong> Investments generating passive cash flow or capital appreciation over time (e.g., broad equities, index funds, real estate, professional skill acquisition).</li>
+                                <li><strong>Depreciating Assets:</strong> Consumer goods declining in value immediately upon acquisition (e.g., new automobiles, luxury apparel, consumer electronics financed via revolving debt).</li>
+                            </ul>
+                        </div>
+
+                        <div class="lesson-section">
+                            <h3>Investment Instruments</h3>
+                            <p>Primary investment vehicles include corporate stocks, bonds, Exchange-Traded Funds (ETFs), mutual funds, and index funds. Risk management is achieved through broad asset diversification.</p>
+                        </div>
+                    </section>`;
+            } else if (tabKey === 'resources') {
+                main.innerHTML = `
+                    <section class="module-card">
+                        <h2 class="module-title">📚 Educational Resources & Literature</h2>
+                        <p class="module-desc">Curated publications, regulatory portals, and audio programming for advanced financial mastery.</p>
+                        <div class="lesson-section">
+                            <h3>🎧 Recommended Audio Programming</h3>
+                            <ul>
+                                <li><strong>"NPR Life Kit: Money"</strong> – Concise, actionable breakdowns of fundamental personal finance habits and credit building.</li>
+                                <li><strong>"Financial Feminist" (by Tori Dunlap)</strong> – Strategic guidance on wealth accumulation, salary negotiation, and investing.</li>
+                                <li><strong>"ChooseFI"</strong> – Insights regarding financial independence, conscious consumerism, and early wealth creation.</li>
+                            </ul>
+                        </div>
+                        <div class="lesson-section">
+                            <h3>Regulatory & Educational Portals</h3>
+                            <ul>
+                                <li><strong>Investor.gov (SEC):</strong> Educational tools, compounding calculators, and unbiased investment guides.</li>
+                                <li><strong>Khan Academy (Finance & Capital Markets):</strong> Structured instructional media covering interest mechanics, debt, and taxation.</li>
+                                <li><strong>NEFE (National Endowment for Financial Education):</strong> Comprehensive financial literacy frameworks designed for youth.</li>
+                            </ul>
+                        </div>
+                        <div class="lesson-section">
+                            <h3>Recommended Literature</h3>
+                            <ul>
+                                <li><em>"The Psychology of Money"</em> by Morgan Housel – Essential reading on behavioral finance, risk, and decision-making.</li>
+                                <li><em>"Broke Millennial"</em> by Erin Lowry – Pragmatic advisory frameworks for young adults taking control of capital.</li>
+                                <li><em>"I Will Teach You to Be Rich"</em> by Ramit Sethi – Action-oriented guides on conscious spending and automated investing systems.</li>
+                            </ul>
+                        </div>
+                    </section>`;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            switchTab('facts');
+        });
+    </script>
+</body>
+</html>
